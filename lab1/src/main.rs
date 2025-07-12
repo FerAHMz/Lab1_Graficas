@@ -11,26 +11,25 @@ fn main() {
     let mut fb = Framebuffer::new(width, height, Color::RAYWHITE);
     fb.clear();
 
-    let poly1 = vec![
-        (165, 380), (185, 360), (180, 330), (207, 345), (233, 330),
-        (230, 360), (250, 380), (220, 385), (205, 410), (193, 383),
+    let poly = vec![
+        (321, 335), (288, 286), (339, 251), (374, 302),
     ];
 
-    let v1: Vec<Vector2> = poly1
-        .iter()
+    let points: Vec<Vector2> = poly.iter()
         .map(|&(x, y)| Vector2::new(x as f32, (height - y) as f32))
         .collect();
 
-    fb.set_current_color(Color::YELLOW);
-    fill_polygon(&mut fb, &v1, None);
+    fb.set_current_color(Color::BLUE);
+    fill_polygon(&mut fb, &points, None);
 
     fb.set_current_color(Color::WHITE);
-    for i in 0..v1.len() {
-        line(&mut fb, v1[i], v1[(i + 1) % v1.len()]);
+    for i in 0..points.len() {
+        line(&mut fb, points[i], points[(i + 1) % points.len()]);
     }
 
     fb.render_to_file("out.bmp");
 }
+
 
 // --- funciones auxiliares abajo ---
 fn fill_polygon(fb: &mut Framebuffer, points: &[Vector2], skip: Option<&[Vector2]>) {
